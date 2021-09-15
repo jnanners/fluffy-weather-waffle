@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles.css">
     <title>Da Weather</title>
 </head>
 
 <body>
-    <header>
-
+    <header class="text-center bg-primary m-3">
+        <h1>Weather Dashboard</h1>
     </header>
 
-    <main>
+    <main class="row">
+        <div class="col-md-4">
+            <div class="col-md-12 text-center">
+                <h2>Search for a City:</h2>
+                <!-- Form Will Go here -->
+            </div>
+            <div class="col-md-12 text-center">
+                <!-- Search History Buttons will go here -->
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="col-md-12">
+                <div id="current-weather">
+                    <!-- Days current weather will go here -->
+                </div>
+            </div>
+            <div class="col-md-12">
+                <!-- 5 day forecast will go here -->
+            </div>
+        </div>
         
+
     </main>
 
 <script src="./assets/script.js"></script>
