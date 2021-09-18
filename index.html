@@ -18,19 +18,21 @@
         <div class="col-md-4">
             <div class="col-md-12 text-center">
                 <h2>Search for a City:</h2>
-                <!-- Form Will Go here -->
+                <form id="city-location">
+                    <label for="city-name">Enter A City</label>
+                    <input type="text" name="city-name" id="city-name">
+                    <button type="submit">Get Weather</button>
+                </form>
             </div>
             <div class="col-md-12 text-center">
                 <!-- Search History Buttons will go here -->
             </div>
         </div>
         <div class="col-md-8">
-            <div class="col-md-12">
-                <div id="current-weather">
-                    <!-- Days current weather will go here -->
-                </div>
+            <div class="col-md-12" id="current-weather">
+                <!-- Days current weather will go here -->
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" id="weather-forecast">
                 <!-- 5 day forecast will go here -->
             </div>
         </div>
