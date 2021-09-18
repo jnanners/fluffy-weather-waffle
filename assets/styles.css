@@ -8,3 +8,15 @@ body {
     line-height: 1.5;
     font-size: 16px;
 }
+
+#weather-forecast{
+    display: flex;
+    justify-content: space-between;
+}
+
+.forecast-card{
+    background-color: rgb(11, 12, 80);
+    color: white;
+    padding: 5px;
+    margin: 10px;
+}

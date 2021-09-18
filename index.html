@@ -14,32 +14,40 @@
         <h1>Weather Dashboard</h1>
     </header>
 
-    <main class="row">
-        <div class="col-md-4">
-            <div class="col-md-12 text-center">
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 text-center">
                 <h2>Search for a City:</h2>
                 <form id="city-location">
                     <label for="city-name">Enter A City</label>
                     <input type="text" name="city-name" id="city-name">
                     <button type="submit">Get Weather</button>
                 </form>
+                <div>
+                    <!-- Search History Buttons will go here -->
+                </div>
             </div>
-            <div class="col-md-12 text-center">
-                <!-- Search History Buttons will go here -->
+                
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12" id="current-weather">
+                        <!-- Days current weather will go here -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h2 class="col-md-12" id="weather-forecast-title"></h2>
+                    <div class="col-md-12" id="weather-forecast">
+                        <!-- 5 day forecast will go here -->
+                    </div>
+                </div>
+                
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="col-md-12" id="current-weather">
-                <!-- Days current weather will go here -->
-            </div>
-            <div class="col-md-12" id="weather-forecast">
-                <!-- 5 day forecast will go here -->
-            </div>
-        </div>
-        
 
     </main>
-
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="./assets/script.js"></script>
 </body>
 </html>

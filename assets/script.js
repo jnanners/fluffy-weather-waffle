@@ -1,7 +1,6 @@
 //NEED HELP:
-//getting current date and future dates 
+//getting UV color to only surround number
 //save city to local storage and having it appear on screen as a button that will show that citys weather
-//formatting- i think i have it set up wrong, it looks awful
 
 
 //DOM Elements
@@ -9,7 +8,7 @@ var formLocationEl = document.querySelector("#city-location");
 var formInputEl = document.querySelector("#city-name");
 var currentWeatherEl = document.querySelector("#current-weather");
 var futureWeatherEl = document.querySelector("#weather-forecast");
-
+var futureWeatherTitleEl = document.querySelector("#weather-forecast-title");
 
 //when location is submitted
 function formEventHandler(event){
@@ -48,7 +47,7 @@ function getWeather(lat, lon){
         if(response.ok){
             response.json().then(function(data){
                 //send current days info to  put it on webpage
-                dailyForecast(data.current.temp, data.current.wind_speed, data.current.humidity, data.current.uvi);
+                dailyForecast(data.current.temp, data.current.wind_speed, data.current.humidity, data.current.uvi, data.current.weather[0].icon);
                 //send futurecast array to  display 5 day forecast
                 futureForecast(data.daily);
             })
@@ -60,10 +59,18 @@ function getWeather(lat, lon){
 };
 
 // put daily forecast info on page
-function dailyForecast(temp, wind, humidity, uv){
+function dailyForecast(temp, wind, humidity, uv, icon){
+    currentWeatherEl.textContent = "";
+
+    //create img element for icon
+    var iconEl = document.createElement("img");
+    iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+    //variable for current date
+    var currentDate = moment().format("(MM/DD/YYYY)");
     //create div to hold city name and date
     var cityEl = document.createElement("div");
-    cityEl.innerText = formInputEl.value;
+    cityEl.innerText = formInputEl.value + currentDate;
+    cityEl.appendChild(iconEl);
     currentWeatherEl.appendChild(cityEl);
 
     //create div to hold current temp
@@ -84,6 +91,15 @@ function dailyForecast(temp, wind, humidity, uv){
     //create div to hold current uv index
     var uvEl = document.createElement("div");
     uvEl.innerText = "UV Index: " + uv 
+    if(uv <= 3){
+        uvEl.style.backgroundColor = "green";
+    }
+    else if(uv > 6){
+        uvEl.style.backgroundColor = "red";
+    }
+    else{
+        uvEl.style.backgroundColor = "yellow";
+    }
     currentWeatherEl.appendChild(uvEl);
 
     currentWeatherEl.classList.add("border");
@@ -92,15 +108,22 @@ function dailyForecast(temp, wind, humidity, uv){
 
 // loop through array and display 5 day forecast on page
 function futureForecast(array){
-    //div with 5 day forecast title
-    var titleDiv = document.createElement("div");
-    titleDiv.innerHTML = "<h2>5-Day Forecast:</h2>";
-    futureWeatherEl.appendChild(titleDiv);
+    console.log(array);
+    futureWeatherTitleEl.innerText = "5-Day Forecast:"
 
+    futureWeatherEl.textContent = "";
     
     for(var i = 1; i < 6; i++){
         //create a div to hold this days forecast
         var weatherDiv = document.createElement("div");
+        weatherDiv.classList.add("forecast-card");
+        //create a div to hold this days date
+        var currentDate = moment().add(i, "days").format("MM/DD/YYYY");
+        weatherDiv.textContent = currentDate;
+        //create img for weather icon
+        var iconEl = document.createElement("img");
+        iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + array[i].weather[0].icon + "@2x.png")
+        weatherDiv.appendChild(iconEl);
         //create a div to hold this days temp, append to weatherDiv
         var tempDiv = document.createElement("div");
         tempDiv.innerText = "Temp: " + array[i].temp.day + "\xB0F";
@@ -117,7 +140,6 @@ function futureForecast(array){
         futureWeatherEl.appendChild(weatherDiv);
     }
 }
-
 
 
 formLocationEl.addEventListener("submit", formEventHandler);
