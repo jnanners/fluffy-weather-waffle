@@ -17,13 +17,15 @@
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-3 text-center">
-                <h2>Search for a City:</h2>
-                <form id="city-location">
-                    <label for="city-name">Enter A City</label>
-                    <input type="text" name="city-name" id="city-name">
-                    <button type="submit">Get Weather</button>
-                </form>
-                <div>
+                <div class="border-bottom border-dark pb-1">
+                    <h2>Search for a City:</h2>
+                    <form id="city-location">
+                        <label for="city-name">Enter A City</label>
+                        <input type="text" name="city-name" id="city-name">
+                        <button type="submit">Get Weather</button>
+                    </form>
+                </div>
+                <div id="history">
                     <!-- Search History Buttons will go here -->
                 </div>
             </div>
@@ -46,7 +48,7 @@
         </div>
 
     </main>
-    
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="./assets/script.js"></script>
 </body>

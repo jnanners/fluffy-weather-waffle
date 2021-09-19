@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+header{
+    color: white;
+}
+
 body {
     background-color: white;
     color: black;
@@ -19,4 +23,14 @@ body {
     color: white;
     padding: 5px;
     margin: 10px;
+}
+
+#uv-span{
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#history{
+    display: flex;
+    justify-content: center;
 }

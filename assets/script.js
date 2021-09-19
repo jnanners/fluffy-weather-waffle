@@ -1,7 +1,5 @@
 //NEED HELP:
-//getting UV color to only surround number
-//save city to local storage and having it appear on screen as a button that will show that citys weather
-
+//creating history buttons and saving them to local storage to be re-loaded
 
 //DOM Elements
 var formLocationEl = document.querySelector("#city-location");
@@ -9,6 +7,7 @@ var formInputEl = document.querySelector("#city-name");
 var currentWeatherEl = document.querySelector("#current-weather");
 var futureWeatherEl = document.querySelector("#weather-forecast");
 var futureWeatherTitleEl = document.querySelector("#weather-forecast-title");
+var historyBtnsEl = document.querySelector("#history");
 
 //when location is submitted
 function formEventHandler(event){
@@ -16,10 +15,27 @@ function formEventHandler(event){
     
     //variable for name of city
     var cityName = formInputEl.value;
+
+    //send city name to be made into a button
+    createButtons(cityName);
     
     //send city name to  get longitude and latitude
     getCoordinates(cityName);
 };
+
+
+//create search history buttons
+function createButtons(city){
+    //create button with city name
+    var cityBtn = document.createElement("button");
+    cityBtn.innerText = city;
+
+    //append button to history
+    historyBtnsEl.appendChild(cityBtn);
+
+    cityBtn.addEventListener("click", getCoordinates(city));
+}
+
 
 // get lat and lon from city name
 function getCoordinates(city){
@@ -90,15 +106,19 @@ function dailyForecast(temp, wind, humidity, uv, icon){
 
     //create div to hold current uv index
     var uvEl = document.createElement("div");
-    uvEl.innerText = "UV Index: " + uv 
+    var uvNum = document.createElement("span");
+    uvNum.setAttribute("id", "uv-span");
+    uvNum.innerText = uv
+    uvEl.innerText = "UV Index: "
+    uvEl.appendChild(uvNum);
     if(uv <= 3){
-        uvEl.style.backgroundColor = "green";
+        uvNum.style.backgroundColor = "green";
     }
     else if(uv > 6){
-        uvEl.style.backgroundColor = "red";
+        uvNum.style.backgroundColor = "red";
     }
     else{
-        uvEl.style.backgroundColor = "yellow";
+        uvNum.style.backgroundColor = "yellow";
     }
     currentWeatherEl.appendChild(uvEl);
 
@@ -108,7 +128,7 @@ function dailyForecast(temp, wind, humidity, uv, icon){
 
 // loop through array and display 5 day forecast on page
 function futureForecast(array){
-    console.log(array);
+    
     futureWeatherTitleEl.innerText = "5-Day Forecast:"
 
     futureWeatherEl.textContent = "";
