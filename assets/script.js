@@ -9,6 +9,8 @@ var futureWeatherEl = document.querySelector("#weather-forecast");
 var futureWeatherTitleEl = document.querySelector("#weather-forecast-title");
 var historyBtnsEl = document.querySelector("#history");
 
+var oldSearches = JSON.parse(localStorage.getItem("search")) || [];
+
 //when location is submitted
 function formEventHandler(event){
     event.preventDefault();
@@ -16,26 +18,45 @@ function formEventHandler(event){
     //variable for name of city
     var cityName = formInputEl.value;
 
-    //send city name to be made into a button
-    createButtons(cityName);
+    //create button in history section
+    var buttonEl = document.createElement("button");
+    buttonEl.innerText = cityName;
+    historyBtnsEl.appendChild(buttonEl);
+
     
     //send city name to  get longitude and latitude
     getCoordinates(cityName);
+
+    saveSearches();
 };
 
+function saveSearches(){
+    var newSearch = formInputEl.value;
 
-//create search history buttons
-function createButtons(city){
-    //create button with city name
-    var cityBtn = document.createElement("button");
-    cityBtn.innerText = city;
+    if(oldSearches.indexOf(newSearch) === -1){
+    oldSearches.push(newSearch);
+    localStorage.setItem("search", JSON.stringify(oldSearches));
+    }
 
-    //append button to history
-    historyBtnsEl.appendChild(cityBtn);
+    
+};
 
-    cityBtn.addEventListener("click", getCoordinates(city));
+function loadSearches(){
+    var searches = localStorage.getItem("search");
+
+    if(!searches){
+        searches = [];
+        return false;
+    }
+
+    searches = JSON.parse(searches);
+
+    for(var i = 0; i < searches.length; i++){
+        var buttonEl = document.createElement("button");
+        buttonEl.innerText = searches[i];
+        historyBtnsEl.appendChild(buttonEl);
+    }
 }
-
 
 // get lat and lon from city name
 function getCoordinates(city){
@@ -163,3 +184,5 @@ function futureForecast(array){
 
 
 formLocationEl.addEventListener("submit", formEventHandler);
+
+loadSearches();
