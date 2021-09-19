@@ -6,4 +6,7 @@ This is a weather dashboard app that allows the user to input a location and see
 ## Resources
 To access the OpenWeather API go to https://openweathermap.org/api/one-call-api and make an account.
 
-## Website Screenshot
+## Screenshot
+<a href="./assets/images/Screen-Shot.png" target="_blank">Screenshot</a>
+
+## Deployed Application
