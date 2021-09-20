@@ -1,8 +1,6 @@
-//NEED HELP:
-//creating history buttons and saving them to local storage to be re-loaded
-
 //DOM Elements
 var formLocationEl = document.querySelector("#city-location");
+var searchBtnEl = document.querySelector("#searchBtn");
 var formInputEl = document.querySelector("#city-name");
 var currentWeatherEl = document.querySelector("#current-weather");
 var futureWeatherEl = document.querySelector("#weather-forecast");
@@ -49,31 +47,16 @@ function loadSearches(){
 
     searches = JSON.parse(searches);
 
-    for(var i = 0; i < searches.length; i++){
+    searches.forEach(function(name){
         var buttonEl = document.createElement("button");
-        buttonEl.innerText = searches[i];
-        buttonEl.addEventListener("click", console.log(searches[i]));
+        buttonEl.innerText = name;
+        buttonEl.addEventListener("click", function(){
+            getCoordinates(name);
+        })
         
         historyBtnsEl.appendChild(buttonEl);
-    }
+    })
 };
-
-// function loadSearches(){
-//     var searches = localStorage.getItem("search");
-
-//     if(!searches){
-//         searches = [];
-//         return false;
-//     }
-
-//     searches = JSON.parse(searches);
-
-//     for(var i = 0; i < searches.length; i++){
-//         var buttonEl = document.createElement("button");
-//         buttonEl.innerText = searches[i];
-//         historyBtnsEl.appendChild(buttonEl);
-//     }
-// }
 
 // get lat and lon from city name
 function getCoordinates(city){
@@ -200,6 +183,6 @@ function futureForecast(array){
 }
 
 
-formLocationEl.addEventListener("submit", formEventHandler);
+searchBtnEl.addEventListener("click", formEventHandler);
 
 loadSearches();
