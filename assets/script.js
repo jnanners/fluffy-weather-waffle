@@ -19,10 +19,15 @@ function formEventHandler(event){
     var cityName = formInputEl.value;
 
     //create button in history section
-    var buttonEl = document.createElement("button");
-    buttonEl.innerText = cityName;
-    historyBtnsEl.appendChild(buttonEl);
-
+    if(oldSearches.indexOf(cityName) === -1){
+        oldSearches.push(cityName);
+        var buttonEl = document.createElement("button");
+        buttonEl.innerText = cityName;
+        buttonEl.addEventListener("click", function(){
+            getCoordinates(cityName);
+        });
+        historyBtnsEl.appendChild(buttonEl);
+    }
     
     //send city name to  get longitude and latitude
     getCoordinates(cityName);
@@ -31,14 +36,7 @@ function formEventHandler(event){
 };
 
 function saveSearches(){
-    var newSearch = formInputEl.value;
-
-    if(oldSearches.indexOf(newSearch) === -1){
-    oldSearches.push(newSearch);
     localStorage.setItem("search", JSON.stringify(oldSearches));
-    }
-
-    
 };
 
 function loadSearches(){
@@ -54,9 +52,28 @@ function loadSearches(){
     for(var i = 0; i < searches.length; i++){
         var buttonEl = document.createElement("button");
         buttonEl.innerText = searches[i];
+        buttonEl.addEventListener("click", console.log(searches[i]));
+        
         historyBtnsEl.appendChild(buttonEl);
     }
-}
+};
+
+// function loadSearches(){
+//     var searches = localStorage.getItem("search");
+
+//     if(!searches){
+//         searches = [];
+//         return false;
+//     }
+
+//     searches = JSON.parse(searches);
+
+//     for(var i = 0; i < searches.length; i++){
+//         var buttonEl = document.createElement("button");
+//         buttonEl.innerText = searches[i];
+//         historyBtnsEl.appendChild(buttonEl);
+//     }
+// }
 
 // get lat and lon from city name
 function getCoordinates(city){
@@ -67,7 +84,7 @@ function getCoordinates(city){
         if(response.ok){
             response.json().then(function(data){
                 //send lat and lon to funcion to get the weather
-                getWeather(data[0].lat, data[0].lon);
+                getWeather(data[0].lat, data[0].lon, city);
             })
         }
         else{
@@ -77,14 +94,14 @@ function getCoordinates(city){
 }
 
 // get weather for based on lat and lon
-function getWeather(lat, lon){
+function getWeather(lat, lon, city){
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13a6d70de78d1674a8f27d764dfd1692";
     
     fetch(apiUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
                 //send current days info to  put it on webpage
-                dailyForecast(data.current.temp, data.current.wind_speed, data.current.humidity, data.current.uvi, data.current.weather[0].icon);
+                dailyForecast(data.current.temp, data.current.wind_speed, data.current.humidity, data.current.uvi, data.current.weather[0].icon, city);
                 //send futurecast array to  display 5 day forecast
                 futureForecast(data.daily);
             })
@@ -96,7 +113,7 @@ function getWeather(lat, lon){
 };
 
 // put daily forecast info on page
-function dailyForecast(temp, wind, humidity, uv, icon){
+function dailyForecast(temp, wind, humidity, uv, icon, city){
     currentWeatherEl.textContent = "";
 
     //create img element for icon
@@ -106,7 +123,7 @@ function dailyForecast(temp, wind, humidity, uv, icon){
     var currentDate = moment().format("(MM/DD/YYYY)");
     //create div to hold city name and date
     var cityEl = document.createElement("div");
-    cityEl.innerText = formInputEl.value + currentDate;
+    cityEl.innerText = city + currentDate;
     cityEl.appendChild(iconEl);
     currentWeatherEl.appendChild(cityEl);
 
