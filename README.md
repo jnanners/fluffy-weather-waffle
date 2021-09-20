@@ -10,3 +10,4 @@ To access the OpenWeather API go to https://openweathermap.org/api/one-call-api 
 ![Screenshot Image](./assets/images/Screen-Shot.png)
 
 ## Deployed Application
+https://john-harris-iii.github.io/fluffy-weather-waffle/
