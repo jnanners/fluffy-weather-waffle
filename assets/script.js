@@ -61,7 +61,7 @@ function loadSearches(){
 // get lat and lon from city name
 function getCoordinates(city){
     //create api URL 
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=13a6d70de78d1674a8f27d764dfd1692";
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=13a6d70de78d1674a8f27d764dfd1692";
 
     fetch(apiUrl).then(function(response){
         if(response.ok){
@@ -101,7 +101,7 @@ function dailyForecast(temp, wind, humidity, uv, icon, city){
 
     //create img element for icon
     var iconEl = document.createElement("img");
-    iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+    iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
     //variable for current date
     var currentDate = moment().format("(MM/DD/YYYY)");
     //create div to hold city name and date
@@ -163,7 +163,7 @@ function futureForecast(array){
         weatherDiv.textContent = currentDate;
         //create img for weather icon
         var iconEl = document.createElement("img");
-        iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + array[i].weather[0].icon + "@2x.png")
+        iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + array[i].weather[0].icon + "@2x.png")
         weatherDiv.appendChild(iconEl);
         //create a div to hold this days temp, append to weatherDiv
         var tempDiv = document.createElement("div");
